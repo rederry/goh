@@ -6,7 +6,7 @@ package Hbase
 
 import (
 	"fmt"
-	"github.com/sdming/goh/thrift"
+	"github.com/rederry/goh/thrift"
 	"math"
 )
 
@@ -21,7 +21,7 @@ var _ = math.MinInt32
 type IHbase interface {
 	/**
 	 * Brings a table on-line (enables it)
-	 * 
+	 *
 	 * Parameters:
 	 *  - TableName: name of the table
 	 */
@@ -29,14 +29,14 @@ type IHbase interface {
 	/**
 	 * Disables a table (takes it off-line) If it is being served, the master
 	 * will tell the servers to stop serving it.
-	 * 
+	 *
 	 * Parameters:
 	 *  - TableName: name of the table
 	 */
 	DisableTable(tableName Bytes) (io *IOError, err error)
 	/**
 	 * @return true if table is on-line
-	 * 
+	 *
 	 * Parameters:
 	 *  - TableName: name of the table to check
 	 */
@@ -53,24 +53,24 @@ type IHbase interface {
 	MajorCompact(tableNameOrRegionName Bytes) (io *IOError, err error)
 	/**
 	 * List all the userspace tables.
-	 * 
+	 *
 	 * @return returns a list of names
 	 */
 	GetTableNames() (retval116 []Text, io *IOError, err error)
 	/**
 	 * List all the column families assoicated with a table.
-	 * 
+	 *
 	 * @return list of column family descriptors
-	 * 
+	 *
 	 * Parameters:
 	 *  - TableName: table name
 	 */
 	GetColumnDescriptors(tableName Text) (retval117 map[string]*ColumnDescriptor, io *IOError, err error)
 	/**
 	 * List the regions associated with a table.
-	 * 
+	 *
 	 * @return list of region descriptors
-	 * 
+	 *
 	 * Parameters:
 	 *  - TableName: table name
 	 */
@@ -80,11 +80,11 @@ type IHbase interface {
 	 * field for each ColumnDescriptor must be set and must end in a
 	 * colon (:). All other fields are optional and will get default
 	 * values if not explicitly specified.
-	 * 
+	 *
 	 * @throws IllegalArgument if an input parameter is invalid
-	 * 
+	 *
 	 * @throws AlreadyExists if the table name already exists
-	 * 
+	 *
 	 * Parameters:
 	 *  - TableName: name of table to create
 	 *  - ColumnFamilies: list of column family descriptors
@@ -92,10 +92,10 @@ type IHbase interface {
 	CreateTable(tableName Text, columnFamilies []*ColumnDescriptor) (io *IOError, ia *IllegalArgument, exist *AlreadyExists, err error)
 	/**
 	 * Deletes a table
-	 * 
+	 *
 	 * @throws IOError if table doesn't exist on server or there was some other
 	 * problem
-	 * 
+	 *
 	 * Parameters:
 	 *  - TableName: name of table to delete
 	 */
@@ -103,9 +103,9 @@ type IHbase interface {
 	/**
 	 * Get a single TCell for the specified table, row, and column at the
 	 * latest timestamp. Returns an empty list if no such value exists.
-	 * 
+	 *
 	 * @return value for specified row/column
-	 * 
+	 *
 	 * Parameters:
 	 *  - TableName: name of table
 	 *  - Row: row key
@@ -116,9 +116,9 @@ type IHbase interface {
 	/**
 	 * Get the specified number of versions for the specified table,
 	 * row, and column.
-	 * 
+	 *
 	 * @return list of cells for specified row/column
-	 * 
+	 *
 	 * Parameters:
 	 *  - TableName: name of table
 	 *  - Row: row key
@@ -131,9 +131,9 @@ type IHbase interface {
 	 * Get the specified number of versions for the specified table,
 	 * row, and column.  Only versions less than or equal to the specified
 	 * timestamp will be returned.
-	 * 
+	 *
 	 * @return list of cells for specified row/column
-	 * 
+	 *
 	 * Parameters:
 	 *  - TableName: name of table
 	 *  - Row: row key
@@ -146,9 +146,9 @@ type IHbase interface {
 	/**
 	 * Get all the data for the specified table and row at the latest
 	 * timestamp. Returns an empty list if the row does not exist.
-	 * 
+	 *
 	 * @return TRowResult containing the row and map of columns to TCells
-	 * 
+	 *
 	 * Parameters:
 	 *  - TableName: name of table
 	 *  - Row: row key
@@ -158,9 +158,9 @@ type IHbase interface {
 	/**
 	 * Get the specified columns for the specified table and row at the latest
 	 * timestamp. Returns an empty list if the row does not exist.
-	 * 
+	 *
 	 * @return TRowResult containing the row and map of columns to TCells
-	 * 
+	 *
 	 * Parameters:
 	 *  - TableName: name of table
 	 *  - Row: row key
@@ -171,9 +171,9 @@ type IHbase interface {
 	/**
 	 * Get all the data for the specified table and row at the specified
 	 * timestamp. Returns an empty list if the row does not exist.
-	 * 
+	 *
 	 * @return TRowResult containing the row and map of columns to TCells
-	 * 
+	 *
 	 * Parameters:
 	 *  - TableName: name of the table
 	 *  - Row: row key
@@ -184,9 +184,9 @@ type IHbase interface {
 	/**
 	 * Get the specified columns for the specified table and row at the specified
 	 * timestamp. Returns an empty list if the row does not exist.
-	 * 
+	 *
 	 * @return TRowResult containing the row and map of columns to TCells
-	 * 
+	 *
 	 * Parameters:
 	 *  - TableName: name of table
 	 *  - Row: row key
@@ -198,9 +198,9 @@ type IHbase interface {
 	/**
 	 * Get all the data for the specified table and rows at the latest
 	 * timestamp. Returns an empty list if no rows exist.
-	 * 
+	 *
 	 * @return TRowResult containing the rows and map of columns to TCells
-	 * 
+	 *
 	 * Parameters:
 	 *  - TableName: name of table
 	 *  - Rows: row keys
@@ -210,9 +210,9 @@ type IHbase interface {
 	/**
 	 * Get the specified columns for the specified table and rows at the latest
 	 * timestamp. Returns an empty list if no rows exist.
-	 * 
+	 *
 	 * @return TRowResult containing the rows and map of columns to TCells
-	 * 
+	 *
 	 * Parameters:
 	 *  - TableName: name of table
 	 *  - Rows: row keys
@@ -223,9 +223,9 @@ type IHbase interface {
 	/**
 	 * Get all the data for the specified table and rows at the specified
 	 * timestamp. Returns an empty list if no rows exist.
-	 * 
+	 *
 	 * @return TRowResult containing the rows and map of columns to TCells
-	 * 
+	 *
 	 * Parameters:
 	 *  - TableName: name of the table
 	 *  - Rows: row keys
@@ -236,9 +236,9 @@ type IHbase interface {
 	/**
 	 * Get the specified columns for the specified table and rows at the specified
 	 * timestamp. Returns an empty list if no rows exist.
-	 * 
+	 *
 	 * @return TRowResult containing the rows and map of columns to TCells
-	 * 
+	 *
 	 * Parameters:
 	 *  - TableName: name of table
 	 *  - Rows: row keys
@@ -252,7 +252,7 @@ type IHbase interface {
 	 * single transaction.  If an exception is thrown, then the
 	 * transaction is aborted.  Default current timestamp is used, and
 	 * all entries will have an identical timestamp.
-	 * 
+	 *
 	 * Parameters:
 	 *  - TableName: name of table
 	 *  - Row: row key
@@ -265,7 +265,7 @@ type IHbase interface {
 	 * single transaction.  If an exception is thrown, then the
 	 * transaction is aborted.  The specified timestamp is used, and
 	 * all entries will have an identical timestamp.
-	 * 
+	 *
 	 * Parameters:
 	 *  - TableName: name of table
 	 *  - Row: row key
@@ -279,7 +279,7 @@ type IHbase interface {
 	 * in a single transaction.  If an exception is thrown, then the
 	 * transaction is aborted.  Default current timestamp is used, and
 	 * all entries will have an identical timestamp.
-	 * 
+	 *
 	 * Parameters:
 	 *  - TableName: name of table
 	 *  - RowBatches: list of row batches
@@ -291,7 +291,7 @@ type IHbase interface {
 	 * in a single transaction.  If an exception is thrown, then the
 	 * transaction is aborted.  The specified timestamp is used, and
 	 * all entries will have an identical timestamp.
-	 * 
+	 *
 	 * Parameters:
 	 *  - TableName: name of table
 	 *  - RowBatches: list of row batches
@@ -301,7 +301,7 @@ type IHbase interface {
 	MutateRowsTs(tableName Text, rowBatches []*BatchMutation, timestamp int64, attributes map[string]Text) (io *IOError, ia *IllegalArgument, err error)
 	/**
 	 * Atomically increment the column value specified.  Returns the next value post increment.
-	 * 
+	 *
 	 * Parameters:
 	 *  - TableName: name of table
 	 *  - Row: row to increment
@@ -311,7 +311,7 @@ type IHbase interface {
 	AtomicIncrement(tableName Text, row Text, column Text, value int64) (retval136 int64, io *IOError, ia *IllegalArgument, err error)
 	/**
 	 * Delete all cells that match the passed row and column.
-	 * 
+	 *
 	 * Parameters:
 	 *  - TableName: name of table
 	 *  - Row: Row to update
@@ -322,7 +322,7 @@ type IHbase interface {
 	/**
 	 * Delete all cells that match the passed row and column and whose
 	 * timestamp is equal-to or older than the passed timestamp.
-	 * 
+	 *
 	 * Parameters:
 	 *  - TableName: name of table
 	 *  - Row: Row to update
@@ -333,7 +333,7 @@ type IHbase interface {
 	DeleteAllTs(tableName Text, row Text, column Text, timestamp int64, attributes map[string]Text) (io *IOError, err error)
 	/**
 	 * Completely delete the row's cells.
-	 * 
+	 *
 	 * Parameters:
 	 *  - TableName: name of table
 	 *  - Row: key of the row to be completely deleted.
@@ -345,7 +345,7 @@ type IHbase interface {
 	 * Increments can be applied async if hbase.regionserver.thrift.coalesceIncrement is set to true.
 	 * False is the default.  Turn to true if you need the extra performance and can accept some
 	 * data loss if a thrift server dies with increments still in the queue.
-	 * 
+	 *
 	 * Parameters:
 	 *  - Increment: The single increment to apply
 	 */
@@ -358,7 +358,7 @@ type IHbase interface {
 	/**
 	 * Completely delete the row's cells marked with a timestamp
 	 * equal-to or older than the passed timestamp.
-	 * 
+	 *
 	 * Parameters:
 	 *  - TableName: name of table
 	 *  - Row: key of the row to be completely deleted.
@@ -369,7 +369,7 @@ type IHbase interface {
 	/**
 	 * Get a scanner on the current table, using the Scan instance
 	 * for the scan parameters.
-	 * 
+	 *
 	 * Parameters:
 	 *  - TableName: name of table
 	 *  - Scan: Scan instance
@@ -379,9 +379,9 @@ type IHbase interface {
 	/**
 	 * Get a scanner on the current table starting at the specified row and
 	 * ending at the last row in the table.  Return the specified columns.
-	 * 
+	 *
 	 * @return scanner id to be used with other scanner procedures
-	 * 
+	 *
 	 * Parameters:
 	 *  - TableName: name of table
 	 *  - StartRow: Starting row in table to scan.
@@ -396,9 +396,9 @@ type IHbase interface {
 	 * Get a scanner on the current table starting and stopping at the
 	 * specified rows.  ending at the last row in the table.  Return the
 	 * specified columns.
-	 * 
+	 *
 	 * @return scanner id to be used with other scanner procedures
-	 * 
+	 *
 	 * Parameters:
 	 *  - TableName: name of table
 	 *  - StartRow: Starting row in table to scan.
@@ -414,9 +414,9 @@ type IHbase interface {
 	/**
 	 * Open a scanner for a given prefix.  That is all rows will have the specified
 	 * prefix. No other rows will be returned.
-	 * 
+	 *
 	 * @return scanner id to use with other scanner calls
-	 * 
+	 *
 	 * Parameters:
 	 *  - TableName: name of table
 	 *  - StartAndPrefix: the prefix (and thus start row) of the keys you want
@@ -428,9 +428,9 @@ type IHbase interface {
 	 * Get a scanner on the current table starting at the specified row and
 	 * ending at the last row in the table.  Return the specified columns.
 	 * Only values with the specified timestamp are returned.
-	 * 
+	 *
 	 * @return scanner id to be used with other scanner procedures
-	 * 
+	 *
 	 * Parameters:
 	 *  - TableName: name of table
 	 *  - StartRow: Starting row in table to scan.
@@ -447,9 +447,9 @@ type IHbase interface {
 	 * specified rows.  ending at the last row in the table.  Return the
 	 * specified columns.  Only values with the specified timestamp are
 	 * returned.
-	 * 
+	 *
 	 * @return scanner id to be used with other scanner procedures
-	 * 
+	 *
 	 * Parameters:
 	 *  - TableName: name of table
 	 *  - StartRow: Starting row in table to scan.
@@ -468,13 +468,13 @@ type IHbase interface {
 	 * row in the table.  When there are no more rows in the table, or a key
 	 * greater-than-or-equal-to the scanner's specified stopRow is reached,
 	 * an empty list is returned.
-	 * 
+	 *
 	 * @return a TRowResult containing the current row and a map of the columns to TCells.
-	 * 
+	 *
 	 * @throws IllegalArgument if ScannerID is invalid
-	 * 
+	 *
 	 * @throws NotFound when the scanner reaches the end
-	 * 
+	 *
 	 * Parameters:
 	 *  - Id: id of a scanner returned by scannerOpen
 	 */
@@ -484,13 +484,13 @@ type IHbase interface {
 	 * rows and advances to the next row in the table.  When there are no more
 	 * rows in the table, or a key greater-than-or-equal-to the scanner's
 	 * specified stopRow is reached,  an empty list is returned.
-	 * 
+	 *
 	 * @return a TRowResult containing the current row and a map of the columns to TCells.
-	 * 
+	 *
 	 * @throws IllegalArgument if ScannerID is invalid
-	 * 
+	 *
 	 * @throws NotFound when the scanner reaches the end
-	 * 
+	 *
 	 * Parameters:
 	 *  - Id: id of a scanner returned by scannerOpen
 	 *  - NbRows: number of results to return
@@ -498,18 +498,18 @@ type IHbase interface {
 	ScannerGetList(id ScannerID, nbRows int32) (retval150 []*TRowResult, io *IOError, ia *IllegalArgument, err error)
 	/**
 	 * Closes the server-state associated with an open scanner.
-	 * 
+	 *
 	 * @throws IllegalArgument if ScannerID is invalid
-	 * 
+	 *
 	 * Parameters:
 	 *  - Id: id of a scanner returned by scannerOpen
 	 */
 	ScannerClose(id ScannerID) (io *IOError, ia *IllegalArgument, err error)
 	/**
 	 * Get the row just before the specified one.
-	 * 
+	 *
 	 * @return value for specified row/column
-	 * 
+	 *
 	 * Parameters:
 	 *  - TableName: name of table
 	 *  - Row: row key
@@ -519,9 +519,9 @@ type IHbase interface {
 	/**
 	 * Get the regininfo for the specified row. It scans
 	 * the metatable to find region's start and end keys.
-	 * 
+	 *
 	 * @return value for specified row/column
-	 * 
+	 *
 	 * Parameters:
 	 *  - Row: row key
 	 */
@@ -556,7 +556,7 @@ func NewHbaseClientProtocol(t thrift.TTransport, iprot thrift.TProtocol, oprot t
 
 /**
  * Brings a table on-line (enables it)
- * 
+ *
  * Parameters:
  *  - TableName: name of the table
  */
@@ -623,7 +623,7 @@ func (p *HbaseClient) RecvEnableTable() (io *IOError, err error) {
 /**
  * Disables a table (takes it off-line) If it is being served, the master
  * will tell the servers to stop serving it.
- * 
+ *
  * Parameters:
  *  - TableName: name of the table
  */
@@ -689,7 +689,7 @@ func (p *HbaseClient) RecvDisableTable() (io *IOError, err error) {
 
 /**
  * @return true if table is on-line
- * 
+ *
  * Parameters:
  *  - TableName: name of the table to check
  */
@@ -884,7 +884,7 @@ func (p *HbaseClient) RecvMajorCompact() (io *IOError, err error) {
 
 /**
  * List all the userspace tables.
- * 
+ *
  * @return returns a list of names
  */
 func (p *HbaseClient) GetTableNames() (retval179 []Text, io *IOError, err error) {
@@ -949,9 +949,9 @@ func (p *HbaseClient) RecvGetTableNames() (value []Text, io *IOError, err error)
 
 /**
  * List all the column families assoicated with a table.
- * 
+ *
  * @return list of column family descriptors
- * 
+ *
  * Parameters:
  *  - TableName: table name
  */
@@ -1018,9 +1018,9 @@ func (p *HbaseClient) RecvGetColumnDescriptors() (value map[string]*ColumnDescri
 
 /**
  * List the regions associated with a table.
- * 
+ *
  * @return list of region descriptors
- * 
+ *
  * Parameters:
  *  - TableName: table name
  */
@@ -1090,11 +1090,11 @@ func (p *HbaseClient) RecvGetTableRegions() (value []*TRegionInfo, io *IOError, 
  * field for each ColumnDescriptor must be set and must end in a
  * colon (:). All other fields are optional and will get default
  * values if not explicitly specified.
- * 
+ *
  * @throws IllegalArgument if an input parameter is invalid
- * 
+ *
  * @throws AlreadyExists if the table name already exists
- * 
+ *
  * Parameters:
  *  - TableName: name of table to create
  *  - ColumnFamilies: list of column family descriptors
@@ -1168,10 +1168,10 @@ func (p *HbaseClient) RecvCreateTable() (io *IOError, ia *IllegalArgument, exist
 
 /**
  * Deletes a table
- * 
+ *
  * @throws IOError if table doesn't exist on server or there was some other
  * problem
- * 
+ *
  * Parameters:
  *  - TableName: name of table to delete
  */
@@ -1238,9 +1238,9 @@ func (p *HbaseClient) RecvDeleteTable() (io *IOError, err error) {
 /**
  * Get a single TCell for the specified table, row, and column at the
  * latest timestamp. Returns an empty list if no such value exists.
- * 
+ *
  * @return value for specified row/column
- * 
+ *
  * Parameters:
  *  - TableName: name of table
  *  - Row: row key
@@ -1314,9 +1314,9 @@ func (p *HbaseClient) RecvGet() (value []*TCell, io *IOError, err error) {
 /**
  * Get the specified number of versions for the specified table,
  * row, and column.
- * 
+ *
  * @return list of cells for specified row/column
- * 
+ *
  * Parameters:
  *  - TableName: name of table
  *  - Row: row key
@@ -1393,9 +1393,9 @@ func (p *HbaseClient) RecvGetVer() (value []*TCell, io *IOError, err error) {
  * Get the specified number of versions for the specified table,
  * row, and column.  Only versions less than or equal to the specified
  * timestamp will be returned.
- * 
+ *
  * @return list of cells for specified row/column
- * 
+ *
  * Parameters:
  *  - TableName: name of table
  *  - Row: row key
@@ -1473,9 +1473,9 @@ func (p *HbaseClient) RecvGetVerTs() (value []*TCell, io *IOError, err error) {
 /**
  * Get all the data for the specified table and row at the latest
  * timestamp. Returns an empty list if the row does not exist.
- * 
+ *
  * @return TRowResult containing the row and map of columns to TCells
- * 
+ *
  * Parameters:
  *  - TableName: name of table
  *  - Row: row key
@@ -1547,9 +1547,9 @@ func (p *HbaseClient) RecvGetRow() (value []*TRowResult, io *IOError, err error)
 /**
  * Get the specified columns for the specified table and row at the latest
  * timestamp. Returns an empty list if the row does not exist.
- * 
+ *
  * @return TRowResult containing the row and map of columns to TCells
- * 
+ *
  * Parameters:
  *  - TableName: name of table
  *  - Row: row key
@@ -1623,9 +1623,9 @@ func (p *HbaseClient) RecvGetRowWithColumns() (value []*TRowResult, io *IOError,
 /**
  * Get all the data for the specified table and row at the specified
  * timestamp. Returns an empty list if the row does not exist.
- * 
+ *
  * @return TRowResult containing the row and map of columns to TCells
- * 
+ *
  * Parameters:
  *  - TableName: name of the table
  *  - Row: row key
@@ -1699,9 +1699,9 @@ func (p *HbaseClient) RecvGetRowTs() (value []*TRowResult, io *IOError, err erro
 /**
  * Get the specified columns for the specified table and row at the specified
  * timestamp. Returns an empty list if the row does not exist.
- * 
+ *
  * @return TRowResult containing the row and map of columns to TCells
- * 
+ *
  * Parameters:
  *  - TableName: name of table
  *  - Row: row key
@@ -1777,9 +1777,9 @@ func (p *HbaseClient) RecvGetRowWithColumnsTs() (value []*TRowResult, io *IOErro
 /**
  * Get all the data for the specified table and rows at the latest
  * timestamp. Returns an empty list if no rows exist.
- * 
+ *
  * @return TRowResult containing the rows and map of columns to TCells
- * 
+ *
  * Parameters:
  *  - TableName: name of table
  *  - Rows: row keys
@@ -1851,9 +1851,9 @@ func (p *HbaseClient) RecvGetRows() (value []*TRowResult, io *IOError, err error
 /**
  * Get the specified columns for the specified table and rows at the latest
  * timestamp. Returns an empty list if no rows exist.
- * 
+ *
  * @return TRowResult containing the rows and map of columns to TCells
- * 
+ *
  * Parameters:
  *  - TableName: name of table
  *  - Rows: row keys
@@ -1927,9 +1927,9 @@ func (p *HbaseClient) RecvGetRowsWithColumns() (value []*TRowResult, io *IOError
 /**
  * Get all the data for the specified table and rows at the specified
  * timestamp. Returns an empty list if no rows exist.
- * 
+ *
  * @return TRowResult containing the rows and map of columns to TCells
- * 
+ *
  * Parameters:
  *  - TableName: name of the table
  *  - Rows: row keys
@@ -2003,9 +2003,9 @@ func (p *HbaseClient) RecvGetRowsTs() (value []*TRowResult, io *IOError, err err
 /**
  * Get the specified columns for the specified table and rows at the specified
  * timestamp. Returns an empty list if no rows exist.
- * 
+ *
  * @return TRowResult containing the rows and map of columns to TCells
- * 
+ *
  * Parameters:
  *  - TableName: name of table
  *  - Rows: row keys
@@ -2083,7 +2083,7 @@ func (p *HbaseClient) RecvGetRowsWithColumnsTs() (value []*TRowResult, io *IOErr
  * single transaction.  If an exception is thrown, then the
  * transaction is aborted.  Default current timestamp is used, and
  * all entries will have an identical timestamp.
- * 
+ *
  * Parameters:
  *  - TableName: name of table
  *  - Row: row key
@@ -2161,7 +2161,7 @@ func (p *HbaseClient) RecvMutateRow() (io *IOError, ia *IllegalArgument, err err
  * single transaction.  If an exception is thrown, then the
  * transaction is aborted.  The specified timestamp is used, and
  * all entries will have an identical timestamp.
- * 
+ *
  * Parameters:
  *  - TableName: name of table
  *  - Row: row key
@@ -2241,7 +2241,7 @@ func (p *HbaseClient) RecvMutateRowTs() (io *IOError, ia *IllegalArgument, err e
  * in a single transaction.  If an exception is thrown, then the
  * transaction is aborted.  Default current timestamp is used, and
  * all entries will have an identical timestamp.
- * 
+ *
  * Parameters:
  *  - TableName: name of table
  *  - RowBatches: list of row batches
@@ -2317,7 +2317,7 @@ func (p *HbaseClient) RecvMutateRows() (io *IOError, ia *IllegalArgument, err er
  * in a single transaction.  If an exception is thrown, then the
  * transaction is aborted.  The specified timestamp is used, and
  * all entries will have an identical timestamp.
- * 
+ *
  * Parameters:
  *  - TableName: name of table
  *  - RowBatches: list of row batches
@@ -2392,7 +2392,7 @@ func (p *HbaseClient) RecvMutateRowsTs() (io *IOError, ia *IllegalArgument, err 
 
 /**
  * Atomically increment the column value specified.  Returns the next value post increment.
- * 
+ *
  * Parameters:
  *  - TableName: name of table
  *  - Row: row to increment
@@ -2468,7 +2468,7 @@ func (p *HbaseClient) RecvAtomicIncrement() (value int64, io *IOError, ia *Illeg
 
 /**
  * Delete all cells that match the passed row and column.
- * 
+ *
  * Parameters:
  *  - TableName: name of table
  *  - Row: Row to update
@@ -2541,7 +2541,7 @@ func (p *HbaseClient) RecvDeleteAll() (io *IOError, err error) {
 /**
  * Delete all cells that match the passed row and column and whose
  * timestamp is equal-to or older than the passed timestamp.
- * 
+ *
  * Parameters:
  *  - TableName: name of table
  *  - Row: Row to update
@@ -2615,7 +2615,7 @@ func (p *HbaseClient) RecvDeleteAllTs() (io *IOError, err error) {
 
 /**
  * Completely delete the row's cells.
- * 
+ *
  * Parameters:
  *  - TableName: name of table
  *  - Row: key of the row to be completely deleted.
@@ -2688,7 +2688,7 @@ func (p *HbaseClient) RecvDeleteAllRow() (io *IOError, err error) {
  * Increments can be applied async if hbase.regionserver.thrift.coalesceIncrement is set to true.
  * False is the default.  Turn to true if you need the extra performance and can accept some
  * data loss if a thrift server dies with increments still in the queue.
- * 
+ *
  * Parameters:
  *  - Increment: The single increment to apply
  */
@@ -2819,7 +2819,7 @@ func (p *HbaseClient) RecvIncrementRows() (io *IOError, err error) {
 /**
  * Completely delete the row's cells marked with a timestamp
  * equal-to or older than the passed timestamp.
- * 
+ *
  * Parameters:
  *  - TableName: name of table
  *  - Row: key of the row to be completely deleted.
@@ -2892,7 +2892,7 @@ func (p *HbaseClient) RecvDeleteAllRowTs() (io *IOError, err error) {
 /**
  * Get a scanner on the current table, using the Scan instance
  * for the scan parameters.
- * 
+ *
  * Parameters:
  *  - TableName: name of table
  *  - Scan: Scan instance
@@ -2964,9 +2964,9 @@ func (p *HbaseClient) RecvScannerOpenWithScan() (value ScannerID, io *IOError, e
 /**
  * Get a scanner on the current table starting at the specified row and
  * ending at the last row in the table.  Return the specified columns.
- * 
+ *
  * @return scanner id to be used with other scanner procedures
- * 
+ *
  * Parameters:
  *  - TableName: name of table
  *  - StartRow: Starting row in table to scan.
@@ -3044,9 +3044,9 @@ func (p *HbaseClient) RecvScannerOpen() (value ScannerID, io *IOError, err error
  * Get a scanner on the current table starting and stopping at the
  * specified rows.  ending at the last row in the table.  Return the
  * specified columns.
- * 
+ *
  * @return scanner id to be used with other scanner procedures
- * 
+ *
  * Parameters:
  *  - TableName: name of table
  *  - StartRow: Starting row in table to scan.
@@ -3126,9 +3126,9 @@ func (p *HbaseClient) RecvScannerOpenWithStop() (value ScannerID, io *IOError, e
 /**
  * Open a scanner for a given prefix.  That is all rows will have the specified
  * prefix. No other rows will be returned.
- * 
+ *
  * @return scanner id to use with other scanner calls
- * 
+ *
  * Parameters:
  *  - TableName: name of table
  *  - StartAndPrefix: the prefix (and thus start row) of the keys you want
@@ -3203,9 +3203,9 @@ func (p *HbaseClient) RecvScannerOpenWithPrefix() (value ScannerID, io *IOError,
  * Get a scanner on the current table starting at the specified row and
  * ending at the last row in the table.  Return the specified columns.
  * Only values with the specified timestamp are returned.
- * 
+ *
  * @return scanner id to be used with other scanner procedures
- * 
+ *
  * Parameters:
  *  - TableName: name of table
  *  - StartRow: Starting row in table to scan.
@@ -3286,9 +3286,9 @@ func (p *HbaseClient) RecvScannerOpenTs() (value ScannerID, io *IOError, err err
  * specified rows.  ending at the last row in the table.  Return the
  * specified columns.  Only values with the specified timestamp are
  * returned.
- * 
+ *
  * @return scanner id to be used with other scanner procedures
- * 
+ *
  * Parameters:
  *  - TableName: name of table
  *  - StartRow: Starting row in table to scan.
@@ -3372,13 +3372,13 @@ func (p *HbaseClient) RecvScannerOpenWithStopTs() (value ScannerID, io *IOError,
  * row in the table.  When there are no more rows in the table, or a key
  * greater-than-or-equal-to the scanner's specified stopRow is reached,
  * an empty list is returned.
- * 
+ *
  * @return a TRowResult containing the current row and a map of the columns to TCells.
- * 
+ *
  * @throws IllegalArgument if ScannerID is invalid
- * 
+ *
  * @throws NotFound when the scanner reaches the end
- * 
+ *
  * Parameters:
  *  - Id: id of a scanner returned by scannerOpen
  */
@@ -3451,13 +3451,13 @@ func (p *HbaseClient) RecvScannerGet() (value []*TRowResult, io *IOError, ia *Il
  * rows and advances to the next row in the table.  When there are no more
  * rows in the table, or a key greater-than-or-equal-to the scanner's
  * specified stopRow is reached,  an empty list is returned.
- * 
+ *
  * @return a TRowResult containing the current row and a map of the columns to TCells.
- * 
+ *
  * @throws IllegalArgument if ScannerID is invalid
- * 
+ *
  * @throws NotFound when the scanner reaches the end
- * 
+ *
  * Parameters:
  *  - Id: id of a scanner returned by scannerOpen
  *  - NbRows: number of results to return
@@ -3529,9 +3529,9 @@ func (p *HbaseClient) RecvScannerGetList() (value []*TRowResult, io *IOError, ia
 
 /**
  * Closes the server-state associated with an open scanner.
- * 
+ *
  * @throws IllegalArgument if ScannerID is invalid
- * 
+ *
  * Parameters:
  *  - Id: id of a scanner returned by scannerOpen
  */
@@ -3600,9 +3600,9 @@ func (p *HbaseClient) RecvScannerClose() (io *IOError, ia *IllegalArgument, err 
 
 /**
  * Get the row just before the specified one.
- * 
+ *
  * @return value for specified row/column
- * 
+ *
  * Parameters:
  *  - TableName: name of table
  *  - Row: row key
@@ -3674,9 +3674,9 @@ func (p *HbaseClient) RecvGetRowOrBefore() (value []*TCell, io *IOError, err err
 /**
  * Get the regininfo for the specified row. It scans
  * the metatable to find region's start and end keys.
- * 
+ *
  * @return value for specified row/column
- * 
+ *
  * Parameters:
  *  - Row: row key
  */

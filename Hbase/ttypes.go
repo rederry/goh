@@ -6,7 +6,7 @@ package Hbase
 
 import (
 	"fmt"
-	"github.com/sdming/goh/thrift"
+	"github.com/rederry/goh/thrift"
 	"math"
 )
 
@@ -29,7 +29,7 @@ type ScannerID int32
  * stored with together as a result for get and getRow methods. This promotes
  * the timestamp of a cell to a first-class value, making it easy to take
  * note of temporal data. Cell is used all the way from HStore up to HTable.
- * 
+ *
  * Attributes:
  *  - Value
  *  - Timestamp
@@ -219,7 +219,7 @@ func (p *TCell) TStructFields() thrift.TFieldContainer {
  * An HColumnDescriptor contains information about a column family
  * such as the number of versions, compression settings, etc. It is
  * used as input when creating a table or adding a column.
- * 
+ *
  * Attributes:
  *  - Name
  *  - MaxVersions
@@ -744,7 +744,7 @@ func (p *ColumnDescriptor) TStructFields() thrift.TFieldContainer {
 
 /**
  * A TRegionInfo contains information about an HTable region.
- * 
+ *
  * Attributes:
  *  - StartKey
  *  - EndKey
@@ -1173,7 +1173,7 @@ func (p *TRegionInfo) TStructFields() thrift.TFieldContainer {
 
 /**
  * A Mutation object is used to either update or delete a column-value.
- * 
+ *
  * Attributes:
  *  - IsDelete
  *  - Column
@@ -1459,7 +1459,7 @@ func (p *Mutation) TStructFields() thrift.TFieldContainer {
 
 /**
  * A BatchMutation object is used to apply a number of Mutations to a single row.
- * 
+ *
  * Attributes:
  *  - Row
  *  - Mutations
@@ -1673,7 +1673,7 @@ func (p *BatchMutation) TStructFields() thrift.TFieldContainer {
 /**
  * For increments that are not incrementColumnValue
  * equivalents.
- * 
+ *
  * Attributes:
  *  - Table
  *  - Row
@@ -1959,7 +1959,7 @@ func (p *TIncrement) TStructFields() thrift.TFieldContainer {
 
 /**
  * Holds row name and then a map of columns to cells.
- * 
+ *
  * Attributes:
  *  - Row
  *  - Columns
@@ -2181,7 +2181,7 @@ func (p *TRowResult) TStructFields() thrift.TFieldContainer {
 
 /**
  * A Scan object is used to specify scanner parameters when opening a scanner.
- * 
+ *
  * Attributes:
  *  - StartRow
  *  - StopRow
@@ -2624,7 +2624,7 @@ func (p *TScan) TStructFields() thrift.TFieldContainer {
  * An IOError exception signals that an error occurred communicating
  * to the Hbase master or an Hbase region server.  Also used to return
  * more general Hbase error conditions.
- * 
+ *
  * Attributes:
  *  - Message
  */
@@ -2764,7 +2764,7 @@ func (p *IOError) TStructFields() thrift.TFieldContainer {
 /**
  * An IllegalArgument exception indicates an illegal or invalid
  * argument was passed into a procedure.
- * 
+ *
  * Attributes:
  *  - Message
  */
@@ -2904,7 +2904,7 @@ func (p *IllegalArgument) TStructFields() thrift.TFieldContainer {
 /**
  * An AlreadyExists exceptions signals that a table with the specified
  * name already exists
- * 
+ *
  * Attributes:
  *  - Message
  */

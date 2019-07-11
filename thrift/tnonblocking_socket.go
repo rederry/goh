@@ -20,6 +20,7 @@
 package thrift
 
 import (
+	"bufio"
 	"net"
 	"time"
 )
@@ -34,6 +35,7 @@ type TNonblockingSocket struct {
 	 * Socket timeout
 	 */
 	nsecTimeout int64
+	writer      *bufio.Writer
 }
 
 type TNonblockingSocketTransportFactory struct {
@@ -124,6 +126,8 @@ func (p *TNonblockingSocket) Open() error {
 		LOGGER.Print("Could not open socket", err.Error())
 		return NewTTransportException(NOT_OPEN, err.Error())
 	}
+	//p.conn.(*net.TCPConn).SetWriteBuffer(65536)
+	p.writer = bufio.NewWriter(p.conn)
 	return nil
 }
 
@@ -150,8 +154,9 @@ func (p *TNonblockingSocket) Write(buf []byte) (int, error) {
 	if !p.IsOpen() {
 		return 0, NewTTransportException(NOT_OPEN, "Connection not open")
 	}
-	p.pushDeadline(false, true)
-	return p.conn.Write(buf)
+	//p.pushDeadline(false, true)
+	//return p.conn.Write(buf)
+	return p.writer.Write(buf)
 }
 
 /**
@@ -161,13 +166,14 @@ func (p *TNonblockingSocket) Flush() error {
 	if !p.IsOpen() {
 		return NewTTransportException(NOT_OPEN, "Connection not open")
 	}
-	f, ok := p.conn.(Flusher)
-	if ok {
-		err := f.Flush()
-		if err != nil {
-			return NewTTransportExceptionFromOsError(err)
-		}
-	}
+	p.writer.Flush()
+	//f, ok := p.conn.(Flusher)
+	//if ok {
+	//    err := f.Flush()
+	//    if err != nil {
+	//        return NewTTransportExceptionFromOsError(err)
+	//    }
+	//}
 	return nil
 }
 

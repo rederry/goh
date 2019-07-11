@@ -1,14 +1,14 @@
 /*
 
 
-*/
+ */
 
 package goh
 
 import (
 	"errors"
 	"fmt"
-	"github.com/sdming/goh/thrift" // will replace it later
+	"github.com/rederry/goh/thrift" // will replace it later
 )
 
 /*

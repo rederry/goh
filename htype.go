@@ -1,13 +1,13 @@
 /*
 
 
-*/
+ */
 
 package goh
 
 import (
 	"fmt"
-	"github.com/sdming/goh/Hbase"
+	"github.com/rederry/goh/Hbase"
 )
 
 //type Text []byte
@@ -73,7 +73,7 @@ func toHbaseTextMap(source map[string]string) map[string]Hbase.Text {
  * An HColumnDescriptor contains information about a column family
  * such as the number of versions, compression settings, etc. It is
  * used as input when creating a table or adding a column.
- * 
+ *
  * Attributes:
  *  - Name
  *  - MaxVersions
@@ -169,7 +169,7 @@ func NewColumnDescriptorDefault(name string) *ColumnDescriptor {
 
 /**
  * A TRegionInfo contains information about an HTable region.
- * 
+ *
  * Attributes:
  *  - StartKey
  *  - EndKey
@@ -219,7 +219,7 @@ func toRegionList(regions []*Hbase.TRegionInfo) []*TRegionInfo {
 
 // /**
 //  * A Mutation object is used to either update or delete a column-value.
-//  * 
+//  *
 //  * Attributes:
 //  *  - IsDelete
 //  *  - Column
@@ -245,7 +245,7 @@ func NewMutation(column string, value []byte) *Hbase.Mutation {
 
 // /**
 //  * A BatchMutation object is used to apply a number of Mutations to a single row.
-//  * 
+//  *
 //  * Attributes:
 //  *  - Row
 //  *  - Mutations
@@ -266,7 +266,7 @@ func NewBatchMutation(row []byte, mutations []*Hbase.Mutation) *Hbase.BatchMutat
 // /**
 //  * For increments that are not incrementColumnValue
 //  * equivalents.
-//  * 
+//  *
 //  * Attributes:
 //  *  - Table
 //  *  - Row
@@ -291,7 +291,7 @@ func NewTIncrement(table string, row []byte, column string, ammount int64) *Hbas
 
 /**
  * Holds row name and then a map of columns to cells.
- * 
+ *
  * Attributes:
  *  - Row
  *  - Columns
@@ -303,7 +303,7 @@ func NewTIncrement(table string, row []byte, column string, ammount int64) *Hbas
 
 /**
  * A Scan object is used to specify scanner parameters when opening a scanner.
- * 
+ *
  * Attributes:
  *  - StartRow
  *  - StopRow
@@ -353,7 +353,7 @@ func toHbaseTScan(scan *TScan) *Hbase.TScan {
 //  * stored with together as a result for get and getRow methods. This promotes
 //  * the timestamp of a cell to a first-class value, making it easy to take
 //  * note of temporal data. Cell is used all the way from HStore up to HTable.
-//  * 
+//  *
 //  * Attributes:
 //  *  - Value
 //  *  - Timestamp
@@ -367,7 +367,7 @@ func toHbaseTScan(scan *TScan) *Hbase.TScan {
 //  * An IOError exception signals that an error occurred communicating
 //  * to the Hbase master or an Hbase region server.  Also used to return
 //  * more general Hbase error conditions.
-//  * 
+//  *
 //  * Attributes:
 //  *  - Message
 //  */
@@ -378,7 +378,7 @@ func toHbaseTScan(scan *TScan) *Hbase.TScan {
 // /**
 //  * An IllegalArgument exception indicates an illegal or invalid
 //  * argument was passed into a procedure.
-//  * 
+//  *
 //  * Attributes:
 //  *  - Message
 //  */
@@ -389,7 +389,7 @@ func toHbaseTScan(scan *TScan) *Hbase.TScan {
 // /**
 //  * An AlreadyExists exceptions signals that a table with the specified
 //  * name already exists
-//  * 
+//  *
 //  * Attributes:
 //  *  - Message
 //  */

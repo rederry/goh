@@ -1,13 +1,13 @@
 /*
 
 
-*/
+ */
 
 package goh
 
 import (
 	"bytes"
-	"github.com/sdming/goh/Hbase"
+	"github.com/rederry/goh/Hbase"
 )
 
 /*
