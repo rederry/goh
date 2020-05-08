@@ -1,10 +1,11 @@
 package goh
 
 import (
-	"github.com/rederry/goh/Hbase"
-	"github.com/rederry/goh/thrift" // will replace it later
 	"net"
 	"net/url"
+
+	"github.com/rederry/goh/Hbase"
+	"github.com/rederry/goh/thrift" // will replace it later
 	//"thrift"
 )
 
@@ -52,6 +53,27 @@ func NewTcpClient(rawaddr string, protocol int, framed bool) (client *HClient, e
 
 	var trans thrift.TTransport
 	trans, err = thrift.NewTNonblockingSocketAddr(tcpAddr)
+	if err != nil {
+		return
+	}
+	if framed {
+		trans = thrift.NewTFramedTransport(trans)
+	}
+
+	return newClient(tcpAddr.String(), protocol, trans)
+}
+
+/*
+NewTcpClientAddTimeout return a base tcp client instance with timeout
+*/
+func NewTcpClientAddTimeout(rawaddr string, protocol int, framed bool, timeout int64) (client *HClient, err error) {
+	tcpAddr, err := net.ResolveTCPAddr("tcp", rawaddr)
+	if err != nil {
+		return
+	}
+
+	var trans thrift.TTransport
+	trans, err = thrift.NewTNonblockingSocketAddrTimeout(tcpAddr, timeout)
 	if err != nil {
 		return
 	}
